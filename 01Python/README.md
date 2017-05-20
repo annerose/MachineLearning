@@ -25,5 +25,7 @@
 - 直接打开fresh_tomatoes.html 也可以查看结果(maybe cross the wall)
 - 效果图 1.jpg 2.jpg
 
+![screenprint](https://github.com/annerose/MachineLearning/blob/master/01Python/2.jpg)
+
 
 2017-5-20
