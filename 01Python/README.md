@@ -1,6 +1,6 @@
 # 电影网站
 
-This is my website preview
+This is my website preview (maybe cross the wall)
 
 [http://htmlpreview.github.io/?https://github.com/annerose/MachineLearning/blob/master/01Python/fresh_tomatoes.html](http://htmlpreview.github.io/?https://github.com/annerose/MachineLearning/blob/master/01Python/fresh_tomatoes.html "http://htmlpreview.github.io/?https://github.com/annerose/MachineLearning/blob/master/01Python/fresh_tomatoes.html")
 
@@ -25,7 +25,7 @@ This is my website preview
 说明
 
 - 运行entertainment_center.py 可以看到结果
-- 直接打开fresh_tomatoes.html 也可以查看结果(maybe cross the wall)
+- 直接打开fresh_tomatoes.html 也可以查看结果
 - 效果图 1.jpg 2.jpg
 
 ![screenprint](https://github.com/annerose/MachineLearning/blob/master/01Python/2.jpg)
