@@ -6,7 +6,7 @@ import media
 import fresh_tomatoes
 
 
-
+# movie stringlist (tile, storyline, image_url, youtube_url)
 movie_list = [
     ('West World', 'Season 1',
      'https://images-na.ssl-images-amazon.com/images/M/MV5BMTEyODk5NTc2MjNeQTJeQWpwZ15BbWU4MDQ5NTgwOTkx._V1_SY1000_CR0,0,674,1000_AL_.jpg',
@@ -33,7 +33,12 @@ movie_list = [
      'https://www.youtube.com/watch?v=96OrBX1epXM'),
 ]
 
-def makeMoveHtml(movie_info_list):
+
+def make_movie_html(movie_info_list):
+    """ convert movielist to html, and  load this html by web browser
+    :param movie_info_list: movie info stringlist (tile, storyline, image_url, youtube_url)
+    :return: none
+    """
     movies = []
     for item in movie_list:
         movies.append(media.Movie(item[0], item[1], item[2], item[3]))
@@ -41,8 +46,7 @@ def makeMoveHtml(movie_info_list):
     fresh_tomatoes.open_movies_page(movies)
 
 
-makeMoveHtml(movie_list)
+make_movie_html(movie_list)
 print 'done'
 
 # print media.__name__
-#print media.__doc__
