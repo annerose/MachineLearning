@@ -7,100 +7,42 @@ from vector import Vector
 getcontext().prec = 30
 
 
-class Line(object):
+class Plane(object):
 
     NO_NONZERO_ELTS_FOUND_MSG = 'No nonzero elements found'
 
     def __init__(self, normal_vector=None, constant_term=None):
-        self.dimension = 2
+        self.dimension = 3
 
         if not normal_vector:
-            all_zeros = ['0']*self.dimension
+            all_zeros = [0]*self.dimension
             normal_vector = Vector(all_zeros)
         self.normal_vector = normal_vector
 
         if not constant_term:
-            constant_term =   0
-        self.constant_term =  constant_term
+            constant_term = 0
+        self.constant_term =   constant_term
 
         self.set_basepoint()
 
 
     def set_basepoint(self):
         try:
-            n = self.normal_vector
+            n = self.normal_vector.coordinates
             c = self.constant_term
             basepoint_coords = [0]*self.dimension
 
-            initial_index = Line.first_nonzero_index(n)
-            initial_coefficient =   (n[initial_index])
+            initial_index = Plane.first_nonzero_index(n)
+            initial_coefficient = n[initial_index]
 
             basepoint_coords[initial_index] = c/initial_coefficient
             self.basepoint = Vector(basepoint_coords)
 
-            print 'basepoint =', self.basepoint
-
         except Exception as e:
-            if str(e) == Line.NO_NONZERO_ELTS_FOUND_MSG:
+            if str(e) == Plane.NO_NONZERO_ELTS_FOUND_MSG:
                 self.basepoint = None
             else:
                 raise e
-
-    # 两条直线是否方向相同
-    def isSameDir(self, line):
-        return self.basepoint.checkParallel(line.basepoint)
-
-    # 两条直线是否方向相同 AD == BC
-    def isSameDir2(self, line):
-        a = self.normal_vector[0]
-        b = self.normal_vector[1]
-        c = line.normal_vector[0]
-        d = line.normal_vector[1]
-        return  abs(a * d - b * c) < 1e-10
-
-
-    # 两条直线是否平行
-    def isParallel(self, line):
-        if self.isSameDir2 (line):
-            return not self.isEqual(line)
-
-        return False
-
-
-    # 两条直线是否重合
-    def isEqual(self, line):
-
-        if self.isSameDir2(line):
-            a = self.normal_vector[0]
-            k1 = self.constant_term
-
-            c = line.normal_vector[0]
-            k2 = line.constant_term
-
-            return abs(a * k2 - c * k1) < 1e-10
-
-        return False
-
-
-    # 计算交点
-    def calcIntersection(self, line):
-        if self.isSameDir2(line):
-            return None
-
-        a = self.normal_vector[0]
-        b = self.normal_vector[1]
-        k1 = self.constant_term
-
-        c = line.normal_vector[0]
-        d = line.normal_vector[1]
-        k2 = line.constant_term
-
-        x = (d * k1 - b* k2) / (a * d - b * c)
-        y = (- c * k1 + a * k2) / (a * d - b * c)
-
-        return  [x, y]
-
-
 
 
     def __str__(self):
@@ -127,10 +69,10 @@ class Line(object):
 
             return output
 
-        n = self.normal_vector
+        n = self.normal_vector.coordinates
 
         try:
-            initial_index = Line.first_nonzero_index(n)
+            initial_index = Plane.first_nonzero_index(n)
             terms = [write_coefficient(n[i], is_initial_term=(i==initial_index)) + 'x_{}'.format(i+1)
                      for i in range(self.dimension) if round(n[i], num_decimal_places) != 0]
             output = ' '.join(terms)
@@ -149,12 +91,34 @@ class Line(object):
         return output
 
 
+    # 两个平面是否方向一致，检查法向量是否平行
+    def isSameDir(self, plane):
+        return  self.normal_vector.checkParallel(plane.normal_vector)
+
+
+    # 两条平面是否重合， 判断两个基点的连线向量，是否和法线垂直
+    def isEqual(self, plane):
+        if self.isSameDir(plane):
+            vectorLink = self.basepoint.minus(plane.basepoint)
+            return  vectorLink.checkOrthogonal(self.normal_vector)
+
+        return  False
+
+    # 两平面是否平行而不相交
+    def isParalleUnequal(self, plane):
+        if self.isSameDir(plane):
+            return  not self.isEqual(plane)
+
+        return  False
+
+
+
     @staticmethod
     def first_nonzero_index(iterable):
         for k, item in enumerate(iterable):
             if not MyDecimal(item).is_near_zero():
                 return k
-        raise Exception(Line.NO_NONZERO_ELTS_FOUND_MSG)
+        raise Exception(Plane.NO_NONZERO_ELTS_FOUND_MSG)
 
 
 class MyDecimal(Decimal):

@@ -79,6 +79,7 @@ class Vector(object):
 
         return None
 
+    #求向量夹角
     def includedAngle(self, v1, in_degree = False):
         dp = self.dotProducts(v1)
 

@@ -6,7 +6,7 @@ __author__ = 'dddd'
 from vector import *
 
 from line import *
-
+from plane import *
 
 def testVector():
     v1 = Vector([8.218, -9.341])
@@ -142,14 +142,52 @@ def testLine():
 
 
 
-    print line1
-    print line2
-    print line3
-    print line4
+    print line1.isEqual(line2)
+    print line1.isParallel(line2)
+    print line1.calcIntersection(line2)
+
+
+    print line3.isEqual(line4)
+    print line3.isParallel(line4)
+    print line3.calcIntersection(line4)
+
+    print line5.isEqual(line6)
+    print line5.isParallel(line6)
+    print line5.calcIntersection(line6)
+
+
+
+def testPlane():
+
+
+
+    plane1 = Plane (Vector([-0.412, 3.806, 0.728]), -3.46)
+    plane2 = Plane (Vector([1.03, -9.515, -1.82]), 8.65)
+
+    plane3 = Plane (Vector([2.611, 5.528, 0.283]), 4.6)
+    plane4 = Plane (Vector([7.715, 8.306, 5.342]), 3.76)
+
+    plane5 = Plane (Vector([-7.926, 8.625, -7.212]), -7.952)
+    plane6 = Plane (Vector([-2.642, 2.875, -2.404]), -2.443)
+
+    print plane1.isEqual(plane2)
+    print plane1.isParalleUnequal(plane2)
+
+
+    print plane3.isEqual(plane4)
+    print plane3.isParalleUnequal(plane4)
+
+    print plane5.isEqual(plane6)
+    print plane5.isParalleUnequal(plane6)
+
+
+
 
 
 if __name__ == '__main__':
 #    testVector()
 
-    testLine()
+    # testLine()
+
+    testPlane()
 
